@@ -1,0 +1,31 @@
+{
+  "name": "ARIA 3D Visualizer Pipeline",
+  
+  // Point directly to your existing Docker Compose infrastructure configuration
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  
+  // Designate the name of the service handling the main IDE environment inside compose
+  "service": "aria-visualizer",
+  
+  // The default directory inside the container to mount the codebase
+  "workspaceFolder": "/app",
+  
+  // Seamlessly auto-forward the Tailwind frontend preview port out to your corporate browser
+  "forwardPorts": [5173],
+  
+  // Automate configurations immediately after the container clusters finish building
+  "postCreateCommand": "npx playwright install chromium",
+  
+  // Pre-bake standard developer tools directly into the cloud window
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-playwright.playwright",
+        "bradlc.vscode-tailwindcss",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  }
+}
