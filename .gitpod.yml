@@ -1,0 +1,12 @@
+# Tells Gitpod to let your custom docker-compose handle the environment
+tasks:
+  - name: Launch Docker Architecture
+    command: |
+      docker compose up --build
+    openMode: split-right
+
+# Forward the Tailwind UI port out of the cloud container securely
+ports:
+  - port: 5173
+    onOpen: open-preview
+    visibility: public
