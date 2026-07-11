@@ -2,18 +2,14 @@ version: '3.8'
 
 services:
   aria-visualizer:
-    # Use Microsoft's pre-configured image containing Playwright environments
+    # This specifies the base image correctly in Compose format
     image: mcr.microsoft.com/playwright:v1.49.0-noble
     
-    # Overwrite the command to start the Tailwind v4 client dev node process
+    # Keeps the container running and mounts the dev workspace
     command: sh -c "npm install && npm run dev -- --host"
-    
     ports:
       - "5173:5173"
-      
     volumes:
-      # CRITICAL CODESPACES FIX: This adaptive binding syncs the workspace dynamically
       - ..:/workspaces/${localWorkspaceFolderBasename}:cached
-      
     environment:
       - NODE_ENV=development
