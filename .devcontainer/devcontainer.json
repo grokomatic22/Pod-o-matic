@@ -1,35 +1,15 @@
 {
   "name": "ARIA 3D Visualizer Pipeline",
-  
-  // Point explicitly to your root compose structure
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
-  
-  // Connect to the target node UI/Server service
   "service": "aria-visualizer",
-  
-  // CRITICAL CODESPACES FIX: Force the path to look at the native GitHub mounting hub
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  
-  // CRITICAL CODESPACES FIX: Activates the remote cloud Docker engine daemon safely
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "version": "latest"
     }
   },
-  
   "forwardPorts": [5173],
-  
-  // Ensures Playwright components are ready immediately post-build
-  "postCreateCommand": "npx playwright install-deps chromium && npx playwright install chromium",
-  
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-playwright.playwright",
-        "bradlc.vscode-tailwindcss"
-      ]
-    }
-  }
+  "postCreateCommand": "npx playwright install-deps chromium && npx playwright install chromium"
 }
