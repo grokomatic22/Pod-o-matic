@@ -1,21 +1,19 @@
-# Use the official Playwright image which includes Node.js and browser dependencies
-FROM mcr.microsoft.com/playwright:v1.49.0-noble
+version: '3.8'
 
-# Set the working directory
-WORKDIR /app
-
-# Copy package files and install dependencies
-COPY package*.json ./
-RUN npm install
-
-# Copy the rest of your application code (Frontend + Scraper)
-COPY . .
-
-# Build the Tailwind v4 / Vite production asset bundle
-RUN npm run build
-
-# Expose the port your UI application runs on
-EXPOSE 5173
-
-# Start the application
-CMD ["npm", "run", "preview", "--", "--host"]
+services:
+  aria-visualizer:
+    # Use Microsoft's pre-configured image containing Playwright environments
+    image: mcr.microsoft.com/playwright:v1.49.0-noble
+    
+    # Overwrite the command to start the Tailwind v4 client dev node process
+    command: sh -c "npm install && npm run dev -- --host"
+    
+    ports:
+      - "5173:5173"
+      
+    volumes:
+      # CRITICAL CODESPACES FIX: This adaptive binding syncs the workspace dynamically
+      - ..:/workspaces/${localWorkspaceFolderBasename}:cached
+      
+    environment:
+      - NODE_ENV=development
